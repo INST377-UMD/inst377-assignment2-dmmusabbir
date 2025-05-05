@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - Class Activities</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="stocks.html">Stocks</a>
+        <a href="dogs.html">Dogs</a>
+    </nav>
+    <div class="container">
+        <h1>Welcome to Class Activities!</h1>
+        <button class="button" onclick="location.href='stocks.html'">Stocks</button>
+        <button class="button" onclick="location.href='dogs.html'">Dogs</button>
+        
+        <div class="quote-section">
+            <h2 class="quote-heading" style="color: #ec4899; font-size: 1.5rem; margin-top: 2rem;">💖 Quote of the Day 💖</h2>
+            <p id="quote" style="font-style: italic; margin-top: 1rem;">Loading quote...</p>
+        </div>
+    </div>
+    <div class="audio-controls">
+        <h3>Audio Instructions:</h3>
+        <p>Ensure your mic is enabled to use this feature!</p>
+        <p>Say "Hello", "Change the color to pink", "Navigate to stocks", etc.</p>
+        <button class="button" onclick="toggleAudio(true)">Turn On Listening</button>
+        <button class="button" onclick="toggleAudio(false)">Turn Off Listening</button>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://zenquotes.io/api/random'))
+            .then(res => res.json())
+            .then(data => {
+                const contents = JSON.parse(data.contents);
+                const quote = contents[0];
+                document.getElementById('quote').textContent = `${quote.q} - ${quote.a}`;
+            })
+            .catch(err => {
+                document.getElementById('quote').textContent = 'Could not load quote 😢';
+                console.error(err);
+            });
+    </script>
+</body>
+</html>
